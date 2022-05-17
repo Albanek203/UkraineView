@@ -39,5 +39,27 @@ public class UserRepository : BaseRepository<User> {
                 IsCompleted = false
             };
         }
+    }  
+    
+    public async Task<OperationDetail> UpdateNicknameAsync(Expression<Func<User, bool>> predicate, string newNickname) {
+        try {
+            var model = await Entities.Where(predicate).FirstAsync();
+            model.Nickname = newNickname;
+            this.Entities.Update(model);
+            await _context.SaveChangesAsync();
+            return new OperationDetail {
+                Message = "Update user nickname",
+                IsCompleted = true
+            };
+        }
+        catch (Exception exception) {
+            Log.Error(exception, "Create Fatal Exception");
+            return new OperationDetail {
+                Message = "Update user nickname",
+                IsCompleted = false
+            };
+        }
     }
+
+    public void Remove(User user) { this.Entities.Remove(user); }
 }
