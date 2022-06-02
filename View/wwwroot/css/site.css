@@ -1,18 +1,9 @@
-html {
-  font-size: 14px;
+.icon {
+    height: 25px;
+    width: 25px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+.body-box {
+    margin: 0 50px 0 330px;
+    padding-top: 20px;
 }

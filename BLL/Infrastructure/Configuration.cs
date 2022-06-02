@@ -1,6 +1,6 @@
 ﻿using DLL.Context;
 using DLL.Repository;
-using Domain.Models;
+using DLL.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +12,15 @@ public static class Configuration {
         serviceCollection.AddDbContext<UkraineContext>(options => options.UseSqlServer(connectionString, x => x.MigrationsAssembly("View")));
         builder.AddEntityFrameworkStores<UkraineContext>();
 
+        builder.Services.AddTransient<AboutRepository>();
+        builder.Services.AddTransient<AddressRepository>();
+        builder.Services.AddTransient<RegionRepository>();
+        builder.Services.AddTransient<ContactRepository>();
+        builder.Services.AddTransient<EntertainmentRepository>();
+        builder.Services.AddTransient<ImageRepository>();
+        builder.Services.AddTransient<MonumentRepository>();
+        builder.Services.AddTransient<ReviewRepository>();
         builder.Services.AddTransient<UserRepository>();
+        builder.Services.AddTransient<WorkTimeRepository>();
     }
 }

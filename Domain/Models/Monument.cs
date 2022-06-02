@@ -1,4 +1,6 @@
-﻿namespace Domain.Models; 
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Domain.Models; 
 
 public class Monument  {
     public int Id { get; set; }

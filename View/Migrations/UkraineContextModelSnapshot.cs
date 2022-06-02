@@ -73,12 +73,12 @@ namespace View.Migrations
                     b.Property<int>("Built")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Region")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -90,38 +90,9 @@ namespace View.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("Domain.Models.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ZIPCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Domain.Models.Contact", b =>
@@ -172,10 +143,10 @@ namespace View.Migrations
                     b.Property<int>("AboutId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int?>("CityId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<int>("ContactId")
@@ -185,6 +156,9 @@ namespace View.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -192,15 +166,23 @@ namespace View.Migrations
                     b.Property<float>("Rating")
                         .HasColumnType("real");
 
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AboutId");
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("ContactId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Entertainments");
                 });
@@ -220,7 +202,6 @@ namespace View.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Path")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ReviewId")
@@ -248,9 +229,6 @@ namespace View.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -258,13 +236,274 @@ namespace View.Migrations
                     b.Property<float>("Rating")
                         .HasColumnType("real");
 
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Monuments");
+                });
+
+            modelBuilder.Entity("Domain.Models.Region", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<float>("Area")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Formed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Regions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Area = 28131f,
+                            Description = "The capital and largest city of Ukraine, one of the largest and oldest cities in Europe. Located in the middle reaches of the Dnieper, in the northern Dnieper region. Political, socio-economic, transport, educational, scientific, historical, cultural and spiritual center of Ukraine. In the system of administrative-territorial organization of Ukraine, Kyiv has a special status determined by the Constitution, and is not part of any region, although it is the administrative center of Kyiv region. Location of central authorities of Ukraine, foreign missions, headquarters of most enterprises and public associations operating in Ukraine.",
+                            Formed = new DateTime(1932, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AA",
+                            Name = "Kyiv"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Area = 28461f,
+                            Description = "City in the south of Ukraine, the administrative center of the Kherson region. Located on the right high bank of the Dnieper. The population as of January 1, 2022 is 279,131 people. An important economic center of southern Ukraine. Significant railway junction (on the line Mykolaiv-Snihurivka-Dzhankoy), sea trade port, river port. Kherson has a satellite city Oleshka. Since July 17, 2020 it is the administrative center of Kherson district.",
+                            Formed = new DateTime(1944, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BT",
+                            Name = "Kherson"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Area = 21831.97f,
+                            Description = "Is an administrative-territorial unit in western Ukraine . It is one of the three regions of the historical and cultural region of Galicia (Eastern Lesser Poland), part of the Carpathian Euroregion . One of the most developed areas of the state in economic, tourist, cultural and scientific areas. It was formed on November 27, 1939 [ 2] after the annexation of the eastern part of Poland by the Soviet Union under the Molotov-Ribbentrop Pact .The Lviv region consists of 7 districts: Lviv , Drohobych , Chervonohrad , Stryj , Sambir , Zolochiv , and Yavoriv districts . Lviv region borders with Volyn , Rivne , Ternopil , Ivano-Frankivsk and Zakarpattia regions, has access to the state border with the Republic of Poland .The north of the region belongs to the zone of mixed forests, in particular, Maly Polissya ; the middle part - to the forest-steppe , where the ridges of Roztocze , Hologir , Voronyak , Opillya and the extreme western part of the Podil Upland stand out . Further south are the Carpathian foothills and, in fact, the Carpathians . They are represented by the Beskids . The southern border of the region coincides with the Verkhovyna Watershed . The territory of the region is also the main European watershed of the Black and Baltic Seas. The southern part of the Lviv-Volyn coal basin and the western parts of the Pre - Carpathian oil and gas region and the Pre - Carpathian sulfur - bearing basin are located in the Lviv region . The largest industrial centers are Chervonohrad , Lviv and Boryslav-Drohobych - Stebnytsia. Truskavets , Morshyn and Skhidnytsia are balneological resorts of international importance. Architectural ensembles of Lviv and Zhovkva , castles and other attractions, which are rich in the region, the Carpathian Mountains give great prospects for tourism development of the region.",
+                            Formed = new DateTime(1939, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BC",
+                            Name = "Lviv"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Area = 8097f,
+                            Description = "Region in the south-western part of Ukraine. Formed on August 7, 1940 from the northern, mostly inhabited by Ukrainians, part of Bukovina and the neighboring part of Bessarabia (with Khotyn). It is located within the Carpathians, Precarpathians (Bukovynian Prykarpattia) and Pokutsko-Bessarabian Upland.",
+                            Formed = new DateTime(1940, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "CE",
+                            Name = "Chernivtsi"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Area = 28748f,
+                            Description = "Administrative-territorial unit of Ukraine with the center in the city of Poltava. Formed on September 22, 1937. Located in the middle part of the Left Bank of Ukraine and, in part, on the Right Bank of Ukraine. Most of the region lies within the Dnieper lowland and Poltava plain.",
+                            Formed = new DateTime(1937, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BI",
+                            Name = "Poltava"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Area = 24598f,
+                            Description = "Region in Ukraine. Formed on September 22, 1937. Located in the south of the Black Sea lowlands in the lower reaches of the Southern Bug River. In the west it borders with Odessa, in the north with Kirovograd, in the east and northeast with Dnepropetrovsk and in the southeast with Kherson regions. In the south it is washed by the waters of the Black Sea. Area - 24.6 thousand km. The center of the region is the city of Mykolayiv.",
+                            Formed = new DateTime(1937, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BE",
+                            Name = "Mykolaiv"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Area = 20629f,
+                            Description = "Region in the west of Ukraine. It was founded on September 22, 1937 by a resolution of the CEC of the USSR with its center in the city of Kamianets-Podilskyi.",
+                            Formed = new DateTime(1937, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BX",
+                            Name = "Khmelnytsky"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Area = 13823f,
+                            Description = "Administrative-territorial unit of Ukraine with the center in the city of Ternopil. Located on the Podil Upland, the southern border of the region runs along the Dniester River, the eastern - on Zbruch. It occupies the eastern part of Galicia, part of southern Volhynia and part of Western Podillya.",
+                            Formed = new DateTime(1939, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BO",
+                            Name = "Ternopil"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Area = 29832f,
+                            Description = "Region in the north of Ukraine, within the Polissya lowland, in the south within the Dnieper upland. It borders the Gomel region of Belarus in the north, Kyiv in the east, Vinnytsia in the south, and Khmelnytsky and Rivne regions of Ukraine in the west. The administrative center is Zhytomyr. Created on September 22, 1937 from the western districts of Kyiv region.",
+                            Formed = new DateTime(1937, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AM",
+                            Name = "Zhytomyr"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Area = 13928f,
+                            Description = "Administrative-territorial unit in the west of Ukraine. It is one of the three regions of the historical and cultural region of Galicia.",
+                            Formed = new DateTime(1939, 11, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AT",
+                            Name = "Ivano-Frankivsk"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Area = 31865f,
+                            Description = "Region in the north-eastern part of Ukraine. It borders on the west with Kyiv, on the north - with the Gomel region of the Republic of Belarus and the Bryansk region of the Russian Federation, on the east - with Sumy, on the south - with Poltava regions of Ukraine.",
+                            Formed = new DateTime(1932, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "CB",
+                            Name = "Chernihiv"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Area = 20143f,
+                            Description = "Region in the north-west of Ukraine within the Polissya lowland (over 3/4 of the territory) and Volyn upland. It is bordered on the west by the Lublin Voivodeship of the Republic of Poland, on the north by the Brest Region of the Republic of Belarus, on the east by the Rivne Region, and on the south by the Lviv Region of Ukraine. A total of 395 kilometers of the state border runs within the region.",
+                            Formed = new DateTime(1939, 12, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AC",
+                            Name = "Volyn"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Area = 26517f,
+                            Description = "Administrative-territorial unit of Ukraine. It was formed within the modern boundaries on June 3, 1938, when the Voroshilovgrad region was separated from it",
+                            Formed = new DateTime(1932, 7, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AH",
+                            Name = "Donetsk"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Area = 33310f,
+                            Description = "The largest region of Ukraine, located in the southwest of the country. One of the most developed regions of the country in economic, tourist, cultural and scientific areas. In the north and east it borders (clockwise) with Vinnytsia, Kirovohrad and Mykolayiv regions, is washed by the Black Sea, in the south - with Romania, in the west - with Moldova. The region includes Snake Island.",
+                            Formed = new DateTime(1932, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BH",
+                            Name = "Odesa"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Area = 26513f,
+                            Description = "Vinnytsia region was formed on February 27, 1932, when the CEC of the USSR approved the resolution of the IV extraordinary session of the All-Ukrainian Central Executive Committee of February 9, 1932 on the establishment of five regions in Ukraine. As of November 2020, the population is 370.0 thousand people. The regional center is the city of Vinnytsia. Located on the right bank of the Dnieper within the Podolsk Upland.",
+                            Formed = new DateTime(1932, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AB",
+                            Name = "Vinnytsia"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Area = 31914f,
+                            Description = "Region in Ukraine. Located in the central-eastern part of the country.",
+                            Formed = new DateTime(1932, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AE",
+                            Name = "Dnipropetrovsk"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Area = 23834f,
+                            Description = "Region in the north-eastern part of Ukraine; covers parts of the Middle Russian Uplands and the Dnieper Lowland.",
+                            Formed = new DateTime(1939, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BM",
+                            Name = "Sumy"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Area = 12777f,
+                            Description = "Region in the south-west of Ukraine within the western part of the Ukrainian Carpathians and the Transcarpathian lowlands. In the north it borders with Lviv, in the east with Ivano-Frankivsk regions of Ukraine. In the south with Romania, in the southwest with Hungary, in the west with Slovakia, in the northwest with Poland. Regional center - Uzhgorod.",
+                            Formed = new DateTime(1946, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AO",
+                            Name = "Transcarpathian"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Area = 20047f,
+                            Description = "Region in Ukraine. Located in the northwest of the country.",
+                            Formed = new DateTime(1939, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BK",
+                            Name = "Rivne"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Area = 31415f,
+                            Description = "Region in Slobidska Ukraine within the Dnieper lowlands and the Middle Russian uplands.",
+                            Formed = new DateTime(1932, 2, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AX",
+                            Name = "Kharkiv"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Area = 24588f,
+                            Description = "It is located between the Dnieper and Southern Bug rivers in the south of the Dnieper Upland. Almost the entire territory of the region (except for the village of Vlasivka) is located on the right bank of the Dnieper. It borders Cherkasy in the north, Poltava in the northeast, Dnipropetrovsk in the east and southeast, Mykolayiv and Odesa in the south, and Vinnytsia in the west. According to one version, the geographical center of Ukraine is located near Dobrovelychkivka.",
+                            Formed = new DateTime(1939, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BA",
+                            Name = "Kirovohrad"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Area = 20900f,
+                            Description = "Administrative-territorial unit of Ukraine of the first level, located in the central forest-steppe part of the country on both banks of the middle reaches of the Dnieper and the Southern Bug.",
+                            Formed = new DateTime(1954, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "CA",
+                            Name = "Cherkasy"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Area = 27180f,
+                            Description = "Administrative unit in the south of Ukraine. Located in the southeast of Ukraine, it occupies mainly the left-bank part of the lower reaches of the Dnieper River. Regional center - the city of Zaporozhye.",
+                            Formed = new DateTime(1939, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AP",
+                            Name = "Zaporizhzhia"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Area = 26684f,
+                            Description = "Administrative-territorial unit of Ukraine, located in the east of the country, mainly in the basin of the middle reaches of the Seversky Donets. It ranks sixth in population and tenth in area among the administrative-territorial units of the country. In the south-west and west it borders with Donetsk region, and in the north-west - with Kharkiv region.",
+                            Formed = new DateTime(1938, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "BB",
+                            Name = "Luhansk"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Area = 27000f,
+                            Description = "The peninsula on the northern coast of the Black Sea, from the northeast is bordered by the Sea of ​​Azov. Located in the south of Ukraine and covers the Autonomous Republic of Crimea, Sevastopol and partly the south of the Kherson region (north of the Arabat arrow); most of the peninsula (Crimea and Sevastopol) from the end of February 2014 was captured and occupied by Russian regular military units, and later temporarily annexed by the Russian Federation.",
+                            Formed = new DateTime(1869, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Identifier = "AK",
+                            Name = "Crimea"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Review", b =>
@@ -551,12 +790,13 @@ namespace View.Migrations
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ImageId")
+                    b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nickname")
+                    b.Property<string>("NickName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.HasIndex("ImageId");
 
@@ -565,13 +805,13 @@ namespace View.Migrations
 
             modelBuilder.Entity("Domain.Models.Address", b =>
                 {
-                    b.HasOne("Domain.Models.City", "City")
+                    b.HasOne("Domain.Models.Region", "Region")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("Domain.Models.Entertainment", b =>
@@ -588,15 +828,19 @@ namespace View.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.City", null)
-                        .WithMany("Entertainment")
-                        .HasForeignKey("CityId");
-
                     b.HasOne("Domain.Models.Contact", "Contact")
                         .WithMany()
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Models.Region", null)
+                        .WithMany("Entertainment")
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Domain.Models.User", null)
+                        .WithMany("Entertainments")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("About");
 
@@ -628,9 +872,9 @@ namespace View.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.City", null)
+                    b.HasOne("Domain.Models.Region", null)
                         .WithMany("Monument")
-                        .HasForeignKey("CityId");
+                        .HasForeignKey("RegionId");
 
                     b.Navigation("Address");
                 });
@@ -720,18 +964,9 @@ namespace View.Migrations
                 {
                     b.HasOne("Domain.Models.Image", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImageId");
 
                     b.Navigation("Image");
-                });
-
-            modelBuilder.Entity("Domain.Models.City", b =>
-                {
-                    b.Navigation("Entertainment");
-
-                    b.Navigation("Monument");
                 });
 
             modelBuilder.Entity("Domain.Models.Entertainment", b =>
@@ -752,9 +987,21 @@ namespace View.Migrations
                     b.Navigation("WorkTime");
                 });
 
+            modelBuilder.Entity("Domain.Models.Region", b =>
+                {
+                    b.Navigation("Entertainment");
+
+                    b.Navigation("Monument");
+                });
+
             modelBuilder.Entity("Domain.Models.Review", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.Navigation("Entertainments");
                 });
 #pragma warning restore 612, 618
         }

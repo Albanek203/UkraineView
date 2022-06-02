@@ -1,4 +1,6 @@
-﻿namespace Domain.Models;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Domain.Models;
 
 public class Entertainment {
     public int Id { get; set; }
@@ -9,8 +11,10 @@ public class Entertainment {
     public List<Review> Reviews { get; set; }
     public List<Image> Images { get; set; }
     public string EntertainmentType { get; set; }
+    public bool IsChecked { get; set; }
 
     // Information
     public Contact Contact { get; set; }
     public About About { get; set; }
+    public DateTime AddedDate { get; set; }
 }
