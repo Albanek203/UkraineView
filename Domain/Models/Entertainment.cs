@@ -11,5 +11,5 @@ public class Entertainment : Build {
     // Information
     public Contact? Contact { get; set; }
     public About? About { get; set; }
-    public DateOnly CreateDate { get; set; }
+    public DateTime CreateDate { get; set; }
 }

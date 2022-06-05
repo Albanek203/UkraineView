@@ -6,7 +6,7 @@ public class Region {
     public string Description { get; set; }
     public string Identifier { get; set; }
     public float Area { get; set; }
-    public DateOnly Formed { get; set; }
+    public DateTime Formed { get; set; }
     public Image MapImage { get; set; }
     public List<Image> Images { get; set; } = new List<Image>();
     public List<Entertainment> Entertainments { get; set; } = new List<Entertainment>();
