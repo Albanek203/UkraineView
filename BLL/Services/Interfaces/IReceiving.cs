@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace BLL.Services.Interfaces; 
+﻿namespace BLL.Services.Interfaces;
 
 public interface IReceiving<T> {
     Task<IReadOnlyCollection<T>> GetAllAsync();

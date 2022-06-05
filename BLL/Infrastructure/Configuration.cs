@@ -1,6 +1,4 @@
 ﻿using DLL.Context;
-using DLL.Repository;
-using DLL.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
