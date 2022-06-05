@@ -1,12 +1,4 @@
-﻿using System.Linq.Expressions;
-using DLL.Context;
-using DLL.Models;
-using DLL.Repository.Interfaces;
-using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-
-namespace DLL.Repository;
+﻿namespace DLL.Repository;
 
 public class MonumentRepository : BaseRepository<Monument> {
     public MonumentRepository(UkraineContext context) : base(context) { }
@@ -29,40 +21,22 @@ public class MonumentRepository : BaseRepository<Monument> {
 
     public async Task<OperationDetail> UpdateNameAsync(int id, string newName) {
         try {
-            var monument = this.Entities.FirstOrDefault(x => x.Id == id);
-            monument!.Name = newName;
+            var monument = await this.Entities.FirstOrDefaultAsync(x => x.Id == id);
+            ArgumentNullException.ThrowIfNull(monument);
+            monument.Name = newName;
             this.Entities.Update(monument);
             await _context.SaveChangesAsync();
             return new OperationDetail {
-                Message = "Update monument name",
-                IsCompleted = true
+                Message = "Update monument name", IsCompleted = true
             };
-        }
-        catch (Exception exception) {
-            Log.Error(exception, "Create Fatal Exception");
+        } catch (Exception exception) {
+            Log.Error(exception, "Update monument name");
             return new OperationDetail {
-                Message = "Update monument name",
-                IsCompleted = false
+                Message = "Update monument name", IsCompleted = false
             };
         }
     }
-    public async Task<OperationDetail> UpdateWorkTimeAsync(int id, string newName) {
-        try {
-            var monument = this.Entities.FirstOrDefault(x => x.Id == id);
-            monument!.Name = newName;
-            this.Entities.Update(monument);
-            await _context.SaveChangesAsync();
-            return new OperationDetail {
-                Message = "Update monument name",
-                IsCompleted = true
-            };
-        }
-        catch (Exception exception) {
-            Log.Error(exception, "Create Fatal Exception");
-            return new OperationDetail {
-                Message = "Update monument name",
-                IsCompleted = false
-            };
-        }
-    }
+
+    public async Task<IReadOnlyCollection<Review>> GetAllReviewsAsync(int monumentId) =>
+        (await this.Entities.FirstOrDefaultAsync(x => x.Id == monumentId))?.Reviews!;
 }

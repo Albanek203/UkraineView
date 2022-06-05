@@ -1,10 +1,4 @@
-﻿using System.Linq.Expressions;
-using DLL.Context;
-using DLL.Repository.Interfaces;
-using Domain.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace DLL.Repository;
+﻿namespace DLL.Repository;
 
 public class ReviewRepository : BaseRepository<Review> {
     public ReviewRepository(UkraineContext context) : base(context) { }
