@@ -2,6 +2,7 @@
 
 public class About {
     public int Id { get; set; }
+
     // Service Information
     public bool FoodInRestaurant { get; set; }
     public bool FoodWithYou { get; set; }

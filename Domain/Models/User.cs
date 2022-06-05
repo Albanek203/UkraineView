@@ -5,6 +5,7 @@ namespace Domain.Models {
         public string NickName { get; set; }
         public Image? Image { get; set; }
         public DateTime BirthDay { get; set; }
-        public List<Entertainment> Entertainments { get; set; }
+        public bool isMale { get; set; }
+        public List<Entertainment>? Entertainments { get; set; }
     }
 }
