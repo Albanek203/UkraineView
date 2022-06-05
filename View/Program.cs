@@ -1,13 +1,10 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using View.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
 builder.Host.UseSerilog((hostContext,services, configuration) => {
     configuration.WriteTo.File(builder.Environment.WebRootPath+"/Log.txt");
 });
