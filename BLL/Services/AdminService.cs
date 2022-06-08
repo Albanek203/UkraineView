@@ -14,5 +14,5 @@ public class AdminService {
     }
 
     public async Task<IReadOnlyCollection<Entertainment>> GetOwnEntertainmentsAsync(string userHash) =>
-        await _userRepository.GetEntertainmentsAsync(userHash);
+        await _userRepository.GetEntertainmentsByUserAsync(userHash);
 }
