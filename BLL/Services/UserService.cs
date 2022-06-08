@@ -13,10 +13,10 @@ public class UserService : IReceiving<User> {
     public async Task AddUserAsync(User user) { await _userRepository.CreateAsync(user); }
     public void RemoveUser(User user) { _userRepository.Remove(user); }
 
-    public async Task<int> GetUserCountAsync() => await _userRepository.GetUserCountAsync();
+    public async Task<int> GetUserCountAsync() => await _userRepository.GetCountAsync();
 
     public async Task<IReadOnlyCollection<User>> GetUserPagination(int pageNumber = 1, int pageSize = 1) =>
-        await _userRepository.GetUserPagination(pageNumber, pageSize);
+        await _userRepository.GetPagination(pageNumber, pageSize);
 
 #region Update
 
