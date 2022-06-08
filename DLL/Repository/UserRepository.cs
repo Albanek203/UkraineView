@@ -1,4 +1,6 @@
-﻿namespace DLL.Repository;
+﻿using System.Diagnostics;
+
+namespace DLL.Repository;
 
 public class UserRepository : BaseRepository<User> {
     public UserRepository(UkraineContext context) : base(context) { }
@@ -66,4 +68,11 @@ public class UserRepository : BaseRepository<User> {
 
     public async Task<IReadOnlyCollection<Entertainment>> GetEntertainmentsAsync(string userHash) =>
         (await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash))?.Entertainments!;
+
+    public async Task<int> GetUserCountAsync() => await this.Entities.AsNoTracking().CountAsync();
+
+    public async Task<IReadOnlyCollection<User>> GetUserPagination(int pageNumber, int pageSize) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+    }
 }
