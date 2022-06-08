@@ -22,4 +22,11 @@ public class EntertainmentRepository : BaseRepository<Entertainment> {
             Include(x => x.Contact).
             Include(x => x.About).
             Where(predicate).ToListAsync().ConfigureAwait(false);
+
+    public async Task<int> GetUserCountAsync() => await this.Entities.AsNoTracking().CountAsync();
+
+    public async Task<IReadOnlyCollection<Entertainment>> GetUserPagination(int pageNumber, int pageSize) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+    }
 }
