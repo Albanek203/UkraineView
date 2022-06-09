@@ -9,9 +9,9 @@ public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
                   .Include(x => x.Entertainments).ThenInclude(x => x.Reviews).ThenInclude(x => x.Images)
                   .Include(x => x.Entertainments).ThenInclude(x => x.Images).Include(x => x.Entertainments)
                   .ThenInclude(x => x.Contact).Include(x => x.Entertainments).ThenInclude(x => x.About)
-                  .Include(x => x.Monument).ThenInclude(x => x.WorkTime).Include(x => x.Monument)
-                  .ThenInclude(x => x.Address).Include(x => x.Monument).ThenInclude(x => x.Reviews)
-                  .ThenInclude(x => x.Images).Include(x => x.Monument).ThenInclude(x => x.Images).ToListAsync()
+                  .Include(x => x.Monuments).ThenInclude(x => x.WorkTime).Include(x => x.Monuments)
+                  .ThenInclude(x => x.Address).Include(x => x.Monuments).ThenInclude(x => x.Reviews)
+                  .ThenInclude(x => x.Images).Include(x => x.Monuments).ThenInclude(x => x.Images).ToListAsync()
                   .ConfigureAwait(false);
 
     public override async Task<IReadOnlyCollection<Region>>
@@ -20,9 +20,9 @@ public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
                   .ThenInclude(x => x.Address).Include(x => x.Entertainments).ThenInclude(x => x.Reviews)
                   .ThenInclude(x => x.Images).Include(x => x.Entertainments).ThenInclude(x => x.Images)
                   .Include(x => x.Entertainments).ThenInclude(x => x.Contact).Include(x => x.Entertainments)
-                  .ThenInclude(x => x.About).Include(x => x.Monument).ThenInclude(x => x.WorkTime)
-                  .Include(x => x.Monument).ThenInclude(x => x.Address).Include(x => x.Monument)
-                  .ThenInclude(x => x.Reviews).ThenInclude(x => x.Images).Include(x => x.Monument)
+                  .ThenInclude(x => x.About).Include(x => x.Monuments).ThenInclude(x => x.WorkTime)
+                  .Include(x => x.Monuments).ThenInclude(x => x.Address).Include(x => x.Monuments)
+                  .ThenInclude(x => x.Reviews).ThenInclude(x => x.Images).Include(x => x.Monuments)
                   .ThenInclude(x => x.Images).Where(predicate).ToListAsync().ConfigureAwait(false);
 
     public async Task<IReadOnlyCollection<string>> GetOnlyNameListAsync() =>
