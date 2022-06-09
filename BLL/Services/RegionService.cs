@@ -6,4 +6,6 @@ public class RegionService : IReceiving<Region> {
     public async Task<IReadOnlyCollection<Region>> GetAllAsync() => await _regionRepository.GetAllAsync();
     public async Task<IReadOnlyCollection<Region>> FindByConditionAsync(Expression<Func<Region, bool>> predicate) =>
         await _regionRepository.FindByConditionAsync(predicate);
+
+    public async Task<IReadOnlyCollection<string>> GetOnlyNameListAsync() => await _regionRepository.GetOnlyNameListAsync();
 }
