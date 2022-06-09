@@ -9,8 +9,8 @@ public class RegionService : IReceiving<Region> {
 
     public async Task<IReadOnlyCollection<string>> GetOnlyNameListAsync() => await _regionRepository.GetOnlyNameListAsync();
     
-    public async Task<int> GetEntertainmentCountAsync() => await _regionRepository.GetCountAsync();
+    public async Task<int> GetRegionCountAsync() => await _regionRepository.GetCountAsync();
 
-    public async Task<IReadOnlyCollection<Region>> GetEntertainmentPagination(int pageNumber = 1, int pageSize = 1) =>
+    public async Task<IReadOnlyCollection<Region>> GetRegionPagination(int pageNumber = 1, int pageSize = 1) =>
         await _regionRepository.GetPagination(pageNumber, pageSize);
 }
