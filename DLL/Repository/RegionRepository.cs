@@ -1,6 +1,6 @@
 ﻿namespace DLL.Repository;
 
-public class RegionRepository : BaseRepository<Region> {
+public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
     public RegionRepository(UkraineContext context) : base(context) { }
 
     public override async Task<IReadOnlyCollection<Region>> GetAllAsync() =>
@@ -27,4 +27,11 @@ public class RegionRepository : BaseRepository<Region> {
 
     public async Task<IReadOnlyCollection<string>> GetOnlyNameListAsync() =>
         await this.Entities.Select(x => x.Name).ToListAsync();
+
+    public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
+
+    public async Task<IReadOnlyCollection<Region>> GetPagination(int pageNumber, int pageSize) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+    }
 }
