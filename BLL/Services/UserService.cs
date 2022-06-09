@@ -15,7 +15,7 @@ public class UserService : IReceiving<User> {
 
     public async Task<int> GetUserCountAsync() => await _userRepository.GetCountAsync();
 
-    public async Task<IReadOnlyCollection<User>> GetUserPagination(int pageNumber = 1, int pageSize = 1) =>
+    public async Task<IReadOnlyCollection<User>> GetUserPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
         await _userRepository.GetPagination(pageNumber, pageSize);
 
 #region Update

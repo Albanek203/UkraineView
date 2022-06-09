@@ -29,6 +29,6 @@ public class EntertainmentService : IReceiving<Entertainment> {
     
     public async Task<int> GetEntertainmentCountAsync() => await _entertainmentRepository.GetCountAsync();
 
-    public async Task<IReadOnlyCollection<Entertainment>> GetEntertainmentPagination(int pageNumber = 1, int pageSize = 1) =>
+    public async Task<IReadOnlyCollection<Entertainment>> GetEntertainmentPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
         await _entertainmentRepository.GetPagination(pageNumber, pageSize);
 }
