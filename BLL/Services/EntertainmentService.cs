@@ -9,15 +9,21 @@ public class EntertainmentService : IReceiving<Entertainment> {
         _reviewRepository = reviewRepository;
     }
 
-    public async Task<IReadOnlyCollection<Entertainment>>
-        FindByConditionAsync(Expression<Func<Entertainment, bool>> predicate) =>
+    public async Task CreateAsync(Entertainment entertainment) { await _entertainmentRepository.CreateAsync(entertainment); }
+
+    public async Task<IReadOnlyCollection<Entertainment>> FindByConditionAsync(Expression<Func<Entertainment, bool>> predicate) =>
         await _entertainmentRepository.FindByConditionAsync(predicate);
 
     public async Task<IReadOnlyCollection<Entertainment>> GetAllAsync() => await _entertainmentRepository.GetAllAsync();
 
-    public async Task AddEntertainmentAsync(Entertainment entertainment) {
-        await _entertainmentRepository.CreateAsync(entertainment);
-    }
+#region Pagination
+
+    public async Task<int> GetCountAsync() => await _entertainmentRepository.GetCountAsync();
+
+    public async Task<IReadOnlyCollection<Entertainment>> GetPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
+        await _entertainmentRepository.GetPaginationAsync(pageNumber, pageSize);
+
+#endregion
 
     public async Task AddReviewAsync(int entertainmentId, Review review) {
         var entertainment = (await _entertainmentRepository.FindByConditionAsync(x => x.Id == entertainmentId))
@@ -26,9 +32,4 @@ public class EntertainmentService : IReceiving<Entertainment> {
         review.Entertainment = entertainment;
         await _reviewRepository.CreateAsync(review);
     }
-    
-    public async Task<int> GetEntertainmentCountAsync() => await _entertainmentRepository.GetCountAsync();
-
-    public async Task<IReadOnlyCollection<Entertainment>> GetEntertainmentPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
-        await _entertainmentRepository.GetPagination(pageNumber, pageSize);
 }

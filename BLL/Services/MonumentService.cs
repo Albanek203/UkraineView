@@ -9,22 +9,26 @@ public class MonumentService : IReceiving<Monument> {
         _reviewRepository = reviewRepository;
     }
 
+    public async Task CreateAsync(Monument monument) { await _monumentRepository.CreateAsync(monument); }
+
     public async Task<IReadOnlyCollection<Monument>> GetAllAsync() => await _monumentRepository.GetAllAsync();
 
     public async Task<IReadOnlyCollection<Monument>> FindByConditionAsync(Expression<Func<Monument, bool>> predicate) =>
         await _monumentRepository.FindByConditionAsync(predicate);
 
-    public async Task AddMonumentAsync(Monument monument) { await _monumentRepository.CreateAsync(monument); }
+#region Pagination
 
+    public async Task<int> GetCountAsync() => await _monumentRepository.GetCountAsync();
+
+    public async Task<IReadOnlyCollection<Monument>> GetPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
+        await _monumentRepository.GetPaginationAsync(pageNumber, pageSize);
+
+#endregion
+    
     public async Task AddReviewAsync(int monumentId, Review review) {
         var monument = (await _monumentRepository.FindByConditionAsync(x => x.Id == monumentId)).FirstOrDefault();
         monument?.Reviews.Add(review);
         review.Monument = monument;
         await _reviewRepository.CreateAsync(review);
     }
-    
-    public async Task<int> GetMonumentCountAsync() => await _monumentRepository.GetCountAsync();
-
-    public async Task<IReadOnlyCollection<Monument>> GetMonumentPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
-        await _monumentRepository.GetPagination(pageNumber, pageSize);
 }

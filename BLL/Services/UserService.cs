@@ -4,19 +4,21 @@ public class UserService : IReceiving<User> {
     private readonly UserRepository _userRepository;
 
     public UserService(UserRepository userRepository) { _userRepository = userRepository; }
+    public async Task CreateAsync(User user) { await _userRepository.CreateAsync(user); }
 
     public async Task<IReadOnlyCollection<User>> GetAllAsync() => await _userRepository.GetAllAsync();
 
     public async Task<IReadOnlyCollection<User>> FindByConditionAsync(Expression<Func<User, bool>> predicate) =>
         await _userRepository.FindByConditionAsync(predicate);
 
-    public async Task AddUserAsync(User user) { await _userRepository.CreateAsync(user); }
-    public void RemoveUser(User user) { _userRepository.Remove(user); }
+#region Pagination
 
-    public async Task<int> GetUserCountAsync() => await _userRepository.GetCountAsync();
+    public async Task<int> GetCountAsync() => await _userRepository.GetCountAsync();
 
-    public async Task<IReadOnlyCollection<User>> GetUserPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
-        await _userRepository.GetPagination(pageNumber, pageSize);
+    public async Task<IReadOnlyCollection<User>> GetPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
+        await _userRepository.GetPaginationAsync(pageNumber, pageSize);
+
+#endregion
 
 #region Update
 
@@ -29,4 +31,6 @@ public class UserService : IReceiving<User> {
     }
 
 #endregion
+
+    public void RemoveUser(User user) { _userRepository.Remove(user); }
 }
