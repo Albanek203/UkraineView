@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/View.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true"/>
+    @if (IsSectionDefined("Styles")) { @await RenderSectionAsync("Styles") }
+</head>
+<body>
+<div class="left-panel-navigate d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+    <span class="text-white" style="font-size:25px; text-align: center;">Admin panel</span>
+    <hr>
+
+    <ul class="mb-auto sidebar">
+        <li>
+            <div>
+                <div class="sidebar-item-icon">
+                    <i class="fa fa-home fs-5 text-white"></i>
+                </div>
+                @Html.ActionLink("Home", "Index", "Home", new { area = "Admin" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+            </div>
+        </li>
+        <li class="dropdown-list">
+            <div>
+                <div class="sidebar-item-icon">
+                    <i class="fa fa-user fs-5 text-white"></i>
+                </div>
+                <snap>User</snap>
+                <i class="fa fa-angle-down dropdown-list-item-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li>
+                    @Html.ActionLink("List users", "List", "User", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown-list">
+            <div>
+                <div class="sidebar-item-icon">
+                    <i class="fa fa-map fs-5 text-white"></i>
+                </div>
+                <snap>Region</snap>
+                <i class="fa fa-angle-down dropdown-list-item-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li>
+                    @Html.ActionLink("Create region", "Create", "Region", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+                <li>
+                    @Html.ActionLink("List regions", "List", "Region", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown-list">
+            <div>
+                <div class="sidebar-item-icon">
+                    <i class="fa fa-diamond fs-5 text-white"></i>
+                </div>
+                <snap>Entertainment</snap>
+                <i class="fa fa-angle-down dropdown-list-item-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li>
+                    @Html.ActionLink("Create entertainment", "Create", "Entertainment", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+                <li>
+                    @Html.ActionLink("List entertainment", "List", "Entertainment", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown-list">
+            <div>
+                <div class="sidebar-item-icon">
+                    <i class="fa fa-university fs-5 text-white"></i>
+                </div>
+                <snap>Monument</snap>
+                <i class="fa fa-angle-down dropdown-list-item-icon"></i>
+            </div>
+            <ul class="sub-menu">
+                <li>
+                    @Html.ActionLink("Create monument", "Create", "Monument", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+                <li>
+                    @Html.ActionLink("List monuments", "List", "Monument", new { area = "" }, new { @class = "text-decoration-none text-white admin-panel-nav-elem" })
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <hr>
+    <div class="dropup">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="" width="40" height="40" class="rounded-circle me-2">
+            <strong>@User.Identity!.Name</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" style="position: absolute; inset: auto auto 0 0; margin: 0; transform: translate(0px, -34px);" data-popper-placement="top-start">
+            <li>
+                <a class="dropdown-item" href="#">Profile</a>
+            </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" href="#">Sign out</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="body-box">
+    @RenderBody()
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/media.js" asp-append-version="true"></script>
+<script src="~/js/sidebar.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/e39d84a1d2.js" crossorigin="anonymous" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required:false)
+</body>
+</html>

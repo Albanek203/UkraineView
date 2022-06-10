@@ -1,0 +1,56 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+}
+
+<div class="container">
+    <section class="login-form">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h1>@ViewData["Title"]</h1>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="flex-row">
+                <label class="lf-label" for="username">
+                    <img src="/Images/Icons/user-gray.png" class="icon" />
+                </label>
+                <input id="username" class="lf-input" placeholder="User name" type="text" asp-for="Input.UserName" autocomplete="nickname" aria-required="true">
+            </div>
+            <span asp-validation-for="Input.UserName" class="text-danger errors-text"></span>
+
+            <div class="flex-row">
+                <label class="lf-label" for="email">
+                    <img src="/Images/Icons/email-gray.png" class="icon" />
+                </label>
+                <input id="email" class="lf-input" placeholder="E-mail" type="email" asp-for="Input.Email" autocomplete="email" aria-required="true">
+            </div>
+            <span asp-validation-for="Input.Email" class="text-danger errors-text"></span>
+
+            <div class="flex-row">
+                <label class="lf-label" for="password">
+                    <img src="/Images/Icons/lock-gray.png" class="icon" />
+                </label>
+                <input id="password" class="lf-input" placeholder="Password" type="password" asp-for="Input.Password" autocomplete="new-password" aria-required="true">
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger errors-text"></span>
+
+            <div class="flex-row">
+                <label class="lf-label" for="confirmPassword">
+                    <img src="/Images/Icons/lock-gray.png" class="icon" />
+                </label>
+                <input id="confirmPassword" class="lf-input" placeholder="Confirm" type="password" asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true">
+            </div>
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger errors-text"></span>
+
+            <input id="login-submit" class="lf-submit" type="submit" value="Register">
+        </form>
+        <a asp-page="./Login" class="mt-3">I already have an account</a>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

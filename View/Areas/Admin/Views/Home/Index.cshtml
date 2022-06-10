@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Styles {
+
+}
+
+<h5><span style="color:gray;">Admin</span>/<span style="color: black;">Home</span></h5>
+
+<div class="d-flex flex-row flex-wrap" style="margin-top: 50px; justify-content:center;">
+    <div class="card-info flex-column">
+        <div class="card-img" style="background-color: #E22368;">
+            <img src="Images/Icons/user-icon.png" alt=""/>
+        </div>
+        <div class="about-card flex-column">
+            <span>Users Online</span>
+            <span>@ViewData["CountUserOnline"]</span>
+        </div>
+    </div>
+    <div class="card-info flex-column">
+        <div class="card-img" style="background-color: #E22368;">
+            <img src="Images/Icons/user-icon.png" alt=""/>
+        </div>
+        <div class="about-card flex-column">
+            <span>Users Online</span>
+            <span>@ViewData["CountUserOnline"]</span>
+        </div>
+    </div>
+</div>
