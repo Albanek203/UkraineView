@@ -42,6 +42,31 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
 
 #endregion
 
+#region Pagination
+
+    public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
+
+    public async Task<IReadOnlyCollection<User>> GetPaginationAsync(int pageNumber = 1, int pageSize = 1) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+    }
+
+    public async Task<int> GetEntertainmentsByUserCountAsync(string userHash) {
+        var user = await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash);
+        return user!.Entertainments!.Count;
+    }
+
+    public async Task<IReadOnlyCollection<Entertainment>> GetPaginationEntertainmentsByUserAsync(
+        string userHash
+      , int pageNumber
+      , int pageSize) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        var user = await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash);
+        return user!.Entertainments!.Skip(excludeRecord).Take(pageSize).ToList();
+    }
+
+#endregion
+
     public OperationDetail Remove(User user) {
         try {
             this.Entities.Remove(user);
@@ -51,15 +76,5 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
             Log.Error(exception, "Remove user");
             return new OperationDetail("Remove user", false);
         }
-    }
-
-    public async Task<IReadOnlyCollection<Entertainment>> GetEntertainmentsByUserAsync(string userHash) =>
-        (await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash))?.Entertainments!;
-
-    public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
-
-    public async Task<IReadOnlyCollection<User>> GetPaginationAsync(int pageNumber, int pageSize) {
-        var excludeRecord = pageNumber * pageSize - pageSize;
-        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
     }
 }
