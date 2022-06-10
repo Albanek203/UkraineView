@@ -22,4 +22,9 @@ public class MonumentService : IReceiving<Monument> {
         review.Monument = monument;
         await _reviewRepository.CreateAsync(review);
     }
+    
+    public async Task<int> GetMonumentCountAsync() => await _monumentRepository.GetCountAsync();
+
+    public async Task<IReadOnlyCollection<Monument>> GetMonumentPaginationAsync(int pageNumber = 1, int pageSize = 1) =>
+        await _monumentRepository.GetPagination(pageNumber, pageSize);
 }

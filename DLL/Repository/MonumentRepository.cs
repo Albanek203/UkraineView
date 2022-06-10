@@ -1,6 +1,6 @@
 ﻿namespace DLL.Repository;
 
-public class MonumentRepository : BaseRepository<Monument> {
+public class MonumentRepository : BaseRepository<Monument>, IPagination<Monument> {
     public MonumentRepository(UkraineContext context) : base(context) { }
 
     public override async Task<IReadOnlyCollection<Monument>> GetAllAsync() =>
@@ -39,4 +39,11 @@ public class MonumentRepository : BaseRepository<Monument> {
 
     public async Task<IReadOnlyCollection<Review>> GetAllReviewsAsync(int monumentId) =>
         (await this.Entities.FirstOrDefaultAsync(x => x.Id == monumentId))?.Reviews!;
+
+    public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
+
+    public async Task<IReadOnlyCollection<Monument>> GetPagination(int pageNumber, int pageSize) {
+        var excludeRecord = pageNumber * pageSize - pageSize;
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+    }
 }
