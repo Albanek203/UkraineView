@@ -13,9 +13,12 @@ public class AdminService {
         _userRepository = userRepository;
     }
 
-    public async Task<int> GetEntertainmentsByUserCountAsync(string userHash) => 
+    public async Task<int> GetEntertainmentsByUserCountAsync(string userHash) =>
         await _userRepository.GetEntertainmentsByUserCountAsync(userHash);
-    
-    public async Task<IReadOnlyCollection<Entertainment>> GetPaginationEntertainmentsByUserAsync(string userHash, int pageNumber, int pageSize) => 
+
+    public async Task<IReadOnlyCollection<Entertainment>>
+        GetPaginationEntertainmentsByUserAsync(string userHash, int pageNumber, int pageSize) =>
         await _userRepository.GetPaginationEntertainmentsByUserAsync(userHash, pageNumber, pageSize);
+
+    public async Task AddEntertainmentToUser(string userHash, Entertainment entertainment) { await _userRepository.AddEntertainmentToUser(userHash, entertainment); }
 }

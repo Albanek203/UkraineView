@@ -6,6 +6,6 @@ namespace Domain.Models {
         public Image? Image { get; set; }
         public DateTime BirthDay { get; set; }
         public bool isMale { get; set; }
-        public List<Entertainment>? Entertainments { get; set; }
+        public List<Entertainment>? Entertainments { get; set; } = new List<Entertainment>();
     }
 }

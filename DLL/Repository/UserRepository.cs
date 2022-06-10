@@ -4,11 +4,13 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
     public UserRepository(UkraineContext context) : base(context) { }
 
     public override async Task<IReadOnlyCollection<User>> GetAllAsync() =>
-        await this.Entities.Include(x => x.Image).ToListAsync().ConfigureAwait(false);
+        await this.Entities.Include(x => x.Entertainments).
+                   Include(x => x.Image).ToListAsync().ConfigureAwait(false);
 
-    public override async Task<IReadOnlyCollection<User>>
-        FindByConditionAsync(Expression<Func<User, bool>> predicate) =>
-        await this.Entities.Include(x => x.Image).Where(predicate).ToListAsync().ConfigureAwait(false);
+    public override async Task<IReadOnlyCollection<User>> FindByConditionAsync(Expression<Func<User, bool>> predicate) =>
+        await this.Entities.Include(x => x.Entertainments).
+                   Include(x => x.Image).Where(predicate).ToListAsync()
+                  .ConfigureAwait(false);
 
 #region Update
 
@@ -52,8 +54,8 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
     }
 
     public async Task<int> GetEntertainmentsByUserCountAsync(string userHash) {
-        var user = await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash);
-        return user!.Entertainments!.Count;
+        var user = (await FindByConditionAsync(x => x.Id == userHash)).FirstOrDefault()!;
+        return user.Entertainments!.Count;
     }
 
     public async Task<IReadOnlyCollection<Entertainment>> GetPaginationEntertainmentsByUserAsync(
@@ -61,12 +63,20 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
       , int pageNumber
       , int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
-        var user = await this.Entities.FirstOrDefaultAsync(x => x.Id == userHash);
-        return user!.Entertainments!.Skip(excludeRecord).Take(pageSize).ToList();
+        var user = (await FindByConditionAsync(x => x.Id == userHash)).FirstOrDefault()!;
+        return user.Entertainments!.Skip(excludeRecord).Take(pageSize).ToList();
     }
 
 #endregion
 
+    public async Task AddEntertainmentToUser(string userHash, Entertainment entertainment) {
+        var user = (await FindByConditionAsync(x => x.Id == userHash)).FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(user);
+        user.Entertainments ??= new List<Entertainment>();
+        user.Entertainments.Add(entertainment);
+        await _context.SaveChangesAsync();
+    }
+    
     public OperationDetail Remove(User user) {
         try {
             this.Entities.Remove(user);

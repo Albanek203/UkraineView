@@ -29,7 +29,12 @@ public class EntertainmentController : Controller, IJsonResponsePagination<Enter
         var region = (await _regionService.FindByConditionAsync(x => x.Name == cityName)).FirstOrDefault()!;
         entertainment.Address.Region = region;
         entertainment.CreateDate = DateTime.Now;
-        await _entertainmentService.CreateAsync(entertainment);
+        if (!User.IsInRole("Manager")) {
+            await _entertainmentService.CreateAsync(entertainment);
+            return RedirectToAction(nameof(Create));
+        }
+        var userHash = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _adminService.AddEntertainmentToUser(userHash, entertainment);
         return RedirectToAction(nameof(Create));
     }
 
