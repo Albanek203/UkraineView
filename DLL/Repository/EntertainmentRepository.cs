@@ -6,7 +6,7 @@ public class EntertainmentRepository : BaseRepository<Entertainment>, IPaginatio
     public override async Task<IReadOnlyCollection<Entertainment>> GetAllAsync() =>
         await this.Entities.
             Include(x => x.WorkTime).
-            Include(x => x.Address).
+            Include(x => x.Address).ThenInclude(x=>x.Region).
             Include(x => x.Reviews).ThenInclude(x => x.Images).
             Include(x => x.Images).
             Include(x => x.Contact).
@@ -16,7 +16,7 @@ public class EntertainmentRepository : BaseRepository<Entertainment>, IPaginatio
     public override async Task<IReadOnlyCollection<Entertainment>> FindByConditionAsync(Expression<Func<Entertainment, bool>> predicate) =>
         await this.Entities.
             Include(x => x.WorkTime).
-            Include(x => x.Address).
+            Include(x => x.Address).ThenInclude(x=>x.Region).
             Include(x => x.Reviews).ThenInclude(x => x.Images).
             Include(x => x.Images).
             Include(x => x.Contact).
@@ -27,6 +27,7 @@ public class EntertainmentRepository : BaseRepository<Entertainment>, IPaginatio
 
     public async Task<IReadOnlyCollection<Entertainment>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
-        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).Include(x => x.Address)
+                         .ThenInclude(x => x.Region).ToListAsync();
     }
 }

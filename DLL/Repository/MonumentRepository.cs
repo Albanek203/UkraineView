@@ -40,6 +40,7 @@ public class MonumentRepository : BaseRepository<Monument>, IPagination<Monument
 
     public async Task<IReadOnlyCollection<Monument>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
-        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
+        return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).Include(x => x.Address)
+                         .ThenInclude(x => x.Region).ToListAsync();
     }
 }
