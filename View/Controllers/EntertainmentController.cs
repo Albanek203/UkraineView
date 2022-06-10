@@ -2,7 +2,7 @@
 
 namespace View.Controllers;
 
-[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator,Manager")]
 public class EntertainmentController : Controller, IJsonResponsePagination<Entertainment> {
     private readonly EntertainmentService _entertainmentService;
     private readonly RegionService _regionService;
@@ -35,6 +35,7 @@ public class EntertainmentController : Controller, IJsonResponsePagination<Enter
 
 #region JsonResponsePagination
 
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> List(string pageNumber) {
         if (!int.TryParse(pageNumber, out var pageNumberInt)) pageNumberInt = 1;
         return View(await GetByChunk(pageNumberInt, 10));
@@ -57,12 +58,14 @@ public class EntertainmentController : Controller, IJsonResponsePagination<Enter
         return Json(enumerable);
     }
 
+    [Authorize(Roles = "Administrator")]
     public async Task<IReadOnlyCollection<Entertainment>> GetByChunk(int pageNumber = 1, int pageSize = 1) {
         var chunk = await _entertainmentService.GetPaginationAsync(pageNumber, pageSize);
         ViewData["ChunkCount"] = await _entertainmentService.GetCountAsync() / pageSize + 1;
         return chunk;
     }
 
+    [Authorize(Roles = "Manager")]
     private async Task<IReadOnlyCollection<Entertainment>> GetByChunkOwnList(int pageNumber = 1, int pageSize = 1) {
         var userHash = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var chunk = await _adminService.GetPaginationEntertainmentsByUserAsync(userHash, pageNumber, pageSize);
