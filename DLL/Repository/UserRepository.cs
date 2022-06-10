@@ -19,14 +19,10 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
             model.Image = new Image { Path = newPath };
             this.Entities.Update(model);
             await _context.SaveChangesAsync();
-            return new OperationDetail {
-                Message = "Update user photo", IsCompleted = true
-            };
+            return new OperationDetail("Update user photo", true);
         } catch (Exception exception) {
             Log.Error(exception, "Update user photo");
-            return new OperationDetail {
-                Message = "Update user photo", IsCompleted = false
-            };
+            return new OperationDetail("Update user photo", false);
         }
     }
 
@@ -37,14 +33,10 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
             model.UserName = newNickname;
             this.Entities.Update(model);
             await _context.SaveChangesAsync();
-            return new OperationDetail {
-                Message = "Update user nickname", IsCompleted = true
-            };
+            return new OperationDetail("Update user nickname", true);
         } catch (Exception exception) {
             Log.Error(exception, "Update user nickname");
-            return new OperationDetail {
-                Message = "Update user nickname", IsCompleted = false
-            };
+            return new OperationDetail("Update user nickname", false);
         }
     }
 
@@ -53,14 +45,11 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
     public OperationDetail Remove(User user) {
         try {
             this.Entities.Remove(user);
-            return new OperationDetail {
-                Message = "Remove user", IsCompleted = true
-            };
+            _context.SaveChangesAsync();
+            return new OperationDetail("Remove user", true);
         } catch (Exception exception) {
             Log.Error(exception, "Remove user");
-            return new OperationDetail {
-                Message = "Remove user", IsCompleted = false
-            };
+            return new OperationDetail("Remove user", false);
         }
     }
 
@@ -69,7 +58,7 @@ public class UserRepository : BaseRepository<User>, IPagination<User> {
 
     public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
 
-    public async Task<IReadOnlyCollection<User>> GetPagination(int pageNumber, int pageSize) {
+    public async Task<IReadOnlyCollection<User>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
         return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
     }

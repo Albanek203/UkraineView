@@ -26,14 +26,10 @@ public class MonumentRepository : BaseRepository<Monument>, IPagination<Monument
             monument.Name = newName;
             this.Entities.Update(monument);
             await _context.SaveChangesAsync();
-            return new OperationDetail {
-                Message = "Update monument name", IsCompleted = true
-            };
+            return new OperationDetail("Update monument name",true);
         } catch (Exception exception) {
             Log.Error(exception, "Update monument name");
-            return new OperationDetail {
-                Message = "Update monument name", IsCompleted = false
-            };
+            return new OperationDetail("Update monument name",false);
         }
     }
 
@@ -42,7 +38,7 @@ public class MonumentRepository : BaseRepository<Monument>, IPagination<Monument
 
     public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
 
-    public async Task<IReadOnlyCollection<Monument>> GetPagination(int pageNumber, int pageSize) {
+    public async Task<IReadOnlyCollection<Monument>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
         return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
     }

@@ -1,6 +1,3 @@
 ﻿namespace DLL.Models;
 
-public class OperationDetail {
-    public string Message { get; set; }
-    public bool IsCompleted { get; set; }
-}
+public record OperationDetail(string Message, bool IsCompleted);

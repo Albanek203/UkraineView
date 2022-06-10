@@ -31,7 +31,7 @@ public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
 
     public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
 
-    public async Task<IReadOnlyCollection<Region>> GetPagination(int pageNumber, int pageSize) {
+    public async Task<IReadOnlyCollection<Region>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
         return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
     }

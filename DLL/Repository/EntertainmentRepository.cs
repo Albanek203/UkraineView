@@ -25,7 +25,7 @@ public class EntertainmentRepository : BaseRepository<Entertainment>, IPaginatio
 
     public async Task<int> GetCountAsync() => await this.Entities.AsNoTracking().CountAsync();
 
-    public async Task<IReadOnlyCollection<Entertainment>> GetPagination(int pageNumber, int pageSize) {
+    public async Task<IReadOnlyCollection<Entertainment>> GetPaginationAsync(int pageNumber, int pageSize) {
         var excludeRecord = pageNumber * pageSize - pageSize;
         return await this.Entities.AsNoTracking().Skip(excludeRecord).Take(pageSize).ToListAsync();
     }

@@ -16,10 +16,11 @@ public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEnti
     public async Task<OperationDetail> CreateAsync(TEntity entity) {
         try {
             await Entities.AddAsync(entity).ConfigureAwait(false);
-            return new OperationDetail { Message = "Create", IsCompleted = true };
+            await _context.SaveChangesAsync();
+            return new OperationDetail("Create", true);
         } catch (Exception exception) {
             Log.Error(exception, "Create Fatal Exception");
-            return new OperationDetail { Message = "Create", IsCompleted = false };
+            return new OperationDetail("Create", false);
         }
     }
 }
