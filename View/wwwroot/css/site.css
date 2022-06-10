@@ -1,3 +1,7 @@
+body {
+    background-color: #F0F1F3;
+}
+
 .icon {
     height: 25px;
     width: 25px;
@@ -6,4 +10,83 @@
 .body-box {
     margin: 0 50px 0 330px;
     padding-top: 20px;
+}
+
+.caption-dash {
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0 0 60px;
+}
+
+.caption-dash:before {
+    content: '';
+    width: 50px;
+    height: 1px;
+    background: #0e0f11;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+
+.caption-dash:after {
+    content: '';
+    width: 50px;
+    height: 1px;
+    background: #0e0f11;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.bg-translucent {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-1 {
+    background-color: #00d6b7;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.btn-1:hover {
+    transform: scale(.99);
+    color: whitesmoke;
+    opacity: .90;
+}
+
+.btn-1:active {
+    background-color: #2ed2bc;
+}
+
+.border-left-bottom {
+    border-left: solid #00d6b7 2px;
+    border-bottom: solid #00d6b7 2px;
+}
+
+.border-right-top {
+    border-right: solid #00d6b7 2px;
+    border-top: solid #00d6b7 2px;
+}
+
+.drop-shadow-gray-1 {
+    filter: drop-shadow(0px 0px 10px gray);
+}
+
+.border-radius-1 {
+    border-radius: 10px;
+}
+
+.border-radius-2 {
+    border-radius: 20px;
+}
+
+.left-panel-navigate {
+    width: 280px;
+    max-width: 280px;
+    max-height: 100vh;
+    height: 100vh;
+    position: fixed;
 }

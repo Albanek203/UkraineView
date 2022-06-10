@@ -3,6 +3,17 @@
     "mssql1": {
       "type": "mssql.local",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "appInsights1": {
+      "type": "appInsights.sdk",
+      "dynamicId": null
+    },
+    "secrets2": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/UkraineViewvault",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri",
+      "dynamicId": null
     }
   }
 }

@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using BLL.Services;
-using View.Models;
-
-namespace View.Controllers;
+﻿namespace View.Controllers;
 
 public class HomeController : Controller {
     private readonly RegionService _regionService;
@@ -21,15 +16,9 @@ public class HomeController : Controller {
     [ActionName("Region")]
     public async Task<IActionResult> ShowRegion(string data) {
         var region = (await _regionService.FindByConditionAsync(x => x.Identifier == data)).FirstOrDefault();
-        if (region == null) return RedirectToAction("Index");
-        ViewData["Title"] = region.Name;
-        return View();
+        ViewData["Title"] = region!.Name;
+        return View(region);
     }
 
     public IActionResult Login() => RedirectToPage("Login");
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error() {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }

@@ -1,0 +1,18 @@
+﻿@model Region
+
+@{
+    ViewData["Title"] = "Add Region";
+    Layout = "../../Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/addition-form.css" asp-append-version="true"/>
+}
+
+@using (Html.BeginForm("Create", "Region", FormMethod.Post, new { enctype = "multipart/form-data" })) { @await Html.PartialAsync("_createRegion") }
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,56 @@
+﻿@model Region
+
+<div class="container">
+    <section class="form">
+        <h1>@ViewData["Title"]</h1>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Name" name="Name" id="name" required/>
+                    <label for="name" class="form__label">Name <span class="text-danger">*</span></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="Identifier" name="Identifier" id="identifier" required/>
+                    <label for="identifier" class="form__label">Identifier <span class="text-danger">*</span></label>
+                </div>
+            </div>
+            <hr class="mt-5"/>
+            <h4 class="text-center">Inforamtion</h4>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Area" onkeypress="return onlyNumberKey(event)" name="Area" id="area"/>
+                    <label for="area" class="form__label">Area</label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input type="date" class="form__field" placeholder="Formed" name="Formed" id="formed"/>
+                    <label for="formed" class="form__label">Formed</label>
+                </div>
+            </div>
+            <div class="d-flex flex-column mt-4">
+                <label for="description" class="form-label simple-text">Description <span class="text-danger">*</span></label>
+                <textarea class="textarea form-control" name="Description" id="description" rows="9" required></textarea>
+            </div>
+            <hr class="mt-5"/>
+            <h4 class="text-center">Select map image</h4>
+            <div class="form-group file-area mt-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <label for="images">Image</label>
+                    <span>Your images should be at least 400x300 wide</span>
+                </div>
+
+                <input type="file" name="images" id="images" accept="image/png, image/jpeg" required="required"/>
+                <div class="file-dummy">
+                    <div class="success">Great, your files are selected. Keep on.</div>
+                    <div class="default">Please select image <i class="fa fa-file-image-o"></i></div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" value="Create" class="submit mt-2"/>
+            </div>
+        </div>
+    </section>
+</div>

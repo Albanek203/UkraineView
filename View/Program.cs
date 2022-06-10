@@ -1,15 +1,16 @@
-using Domain.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Serilog;
-using View.Models;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var keyVaultEndpoint = new Uri("https://ukraineviewvault.vault.azure.net/");
+builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 builder.Host.UseSerilog((hostContext,services, configuration) => {
     configuration.WriteTo.File(builder.Environment.WebRootPath+"/Log.txt");
 });
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetValue(typeof(string),"DefaultConnection").ToString() ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 // Add services to the container.
 var identityBuilder = builder.Services.AddDefaultIdentity<User>(op =>
@@ -23,6 +24,7 @@ BLL.Infrastructure.Configuration.ConfigurationService(builder.Services, connecti
 View.Infrastructure.Configuration.ConfigurationService(builder.Services);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddApplicationInsightsTelemetry();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,0 +1,73 @@
+﻿.widget-categories-item {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.widget-categories-item .widget-categories-img {
+    transition: all 0.4s ease 0s;
+}
+
+.widget-categories-item:hover .widget-categories-img {
+    transform: scale(1.05);
+}
+
+.widget-categories-item:hover .widget-categories-img:before {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.widget-categories-item:hover i {
+    color: #fff;
+}
+
+.widget-categories-item:hover .widget-categories-link {
+    opacity: 1;
+}
+
+.widget-categories-img {
+    position: relative;
+}
+
+.widget-categories-img:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    transition: all 0.7s ease 0s;
+    top: 0;
+    z-index: 22;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    height: 100%;
+}
+
+.widget-categories-img img {
+    width: 101%;
+    display: block;
+    height: auto;
+}
+
+.widget-categories-link {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.4s ease-in-out;
+    opacity: 0;
+    z-index: 222;
+    text-align: center;
+    padding-top: 25%;
+    color: #fff;
+    font: bold 24px Philosopher;
+    text-decoration: none;
+}
+
+.widget-categories-link :hover {
+    color: #fff;
+}
+
+.widget-categories-link i {
+    display: block;
+    font-size: 60px;
+    margin-bottom: 20px;
+}

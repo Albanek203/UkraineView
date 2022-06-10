@@ -6,20 +6,35 @@
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
 }
 
-<div style="position: absolute;">
+<div class="position-absolute">
     @if (!User.Identity!.IsAuthenticated) {
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <div class="d-flex vw-100 justify-content-end">
+            <div class="p-3 bg-translucent d-flex border-left-bottom">
+                <a class="nav-link btn-1 mx-2" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="nav-link btn-1 mx-2" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </div>
+        </div>
     }
     else {
-        if (User.IsInRole("Administrator")) {
-            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Home/Index">Admin panel</a>
-        }
-        if (User.IsInRole("Manager")) {
-            <a class="nav-link text-dark" asp-area="Manager" asp-page="/Home/Index">Manager panel</a>
-        }
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+        <div class="d-flex vw-100 justify-content-end">
+            <div class="p-3 bg-translucent d-flex border-left-bottom">
+                @if (User.IsInRole("Administrator")) {
+                    <a class="nav-link btn-1 mx-2" asp-area="Admin" asp-page="/Home/Index">Admin panel</a>
+                }
+                @if (User.IsInRole("Manager")) {
+                    <a class="nav-link btn-1 mx-2" asp-area="Manager" asp-page="/Home/Index">Manager panel</a>
+                }
+                <a class="nav-link btn-1 mx-2" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+            </div>
+        </div>
     }
+</div>
+
+<div class="position-absolute d-flex vh-100 align-items-end">
+    <div class="p-3 bg-translucent bottom-alarm border-right-top">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aspernatur, at debitis delectus doloremque dolorum fugit illo magnam possimus repellat?
+        Beatae dolores ipsa minus nesciunt odio quas rem repudiandae voluptates?
+    </div>
 </div>
 
 @using (Html.BeginForm("Region", "Home", null, FormMethod.Post, false, new { id = "mapForm" })) {

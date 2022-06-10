@@ -1,0 +1,18 @@
+﻿@model Entertainment
+
+@{
+    ViewData["Title"] = "Add Monument";
+    Layout = "../../Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/addition-form.css" asp-append-version="true"/>
+}
+
+@using (Html.BeginForm("Create", "Monument", FormMethod.Post, new { enctype = "multipart/form-data" })) { @await Html.PartialAsync("_createMonument") }
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

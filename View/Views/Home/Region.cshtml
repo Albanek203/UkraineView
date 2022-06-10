@@ -1,0 +1,92 @@
+﻿@model Region 
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/region.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/icons.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+}
+
+
+@if (@Model == null) {
+    <div style="margin-top: 40vh;">
+        <div class="text-center display-1 text-danger">Error region</div>
+        <div class="text-center display-6">Please allow a download error</div>
+        <div class="text-center">@Html.ActionLink("back", "Index")</div>
+    </div>
+}
+else {
+    <img src="@Model.MapImage.Path"/>
+
+    <!-- Widget categories -->
+    <h2 class="caption-dash">Offers</h2>
+    <div class="widget-categories">
+        <div class="d-flex">
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-1.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Bar") Bars</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-2.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Restaurants") Restaurants</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-3.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Snack bar") Snack bars</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-4.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Night club") Night clubs</span>
+                </a>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-5.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Entertainment") Entertainments</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-6.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Cinema") Cinemas</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-7.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-glass" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Hotel") Hotels</span>
+                </a>
+            </div>
+            <div class="widget-categories-item col-3">
+                <div class="widget-categories-img">
+                    <img src="/Images/Categories/place-category-8.jpg" alt="">
+                </div>
+                <a class="widget-categories-link" href="#">
+                    <i class="fa fa-film" aria-hidden="true"></i><span>@Model.Entertainments.Count(x => x.EntertainmentType == "Shop") Shops</span>
+                </a>
+            </div>
+        </div>
+    </div>
+}

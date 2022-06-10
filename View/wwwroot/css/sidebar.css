@@ -1,0 +1,44 @@
+ul {
+    margin-left: -10px;
+    list-style: none;
+    user-select: none
+}
+
+.sidebar li {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.sidebar li div {
+    display: flex;
+}
+
+.sidebar-item-icon {
+    display: flex;
+    justify-content: center;
+    width: 35px;
+}
+
+.sidebar-item-icon i {
+}
+
+.dropdown-list {
+    cursor: pointer;
+}
+
+.dropdown-list-item-icon {
+    position: absolute;
+    left: 90%;
+}
+
+.sub-menu {
+    margin-top: 10px;
+}
+
+.sub-menu li a {
+    color: white;
+}
+
+.sub-menu li a:hover {
+    color: #007dd6;
+}

@@ -1,0 +1,20 @@
+﻿@model IReadOnlyCollection<User>
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "../../Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" asp-append-version="true"/>
+}
+
+<h5>
+    <span style="color:gray;">Admin/</span><span style="color: black;">Users</span>
+</h5>
+
+@await Html.PartialAsync("_listUsers")
+
+@section Scripts{
+    <script src="~/js/table.js" asp-append-version="true"></script>
+}

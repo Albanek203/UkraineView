@@ -1,0 +1,19 @@
+﻿@model Entertainment
+
+@{
+    ViewData["Title"] = "Add Entertainment";
+    var role = User.IsInRole("Administrator") ? "Admin" : "Manager";
+    Layout = "../../Areas/" + role + "/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/addition-form.css" asp-append-version="true"/>
+}
+
+@using (Html.BeginForm("Create", "Entertainment", FormMethod.Post, new { enctype = "multipart/form-data" })) { @await Html.PartialAsync("_createEntertainment") }
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

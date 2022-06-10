@@ -1,0 +1,37 @@
+﻿* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sfs {
+    display: flex;
+    justify-content: center;
+}
+
+#map svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.screen.map:not(.expanded) #map {
+    flex-basis: 100%;
+}
+
+body {
+    background: linear-gradient(0.25turn, #242e4d, #897e79);
+}
+
+.bottom-alarm {
+    color: white;
+    text-wrap: normal;
+    max-width: 35vw;
+}

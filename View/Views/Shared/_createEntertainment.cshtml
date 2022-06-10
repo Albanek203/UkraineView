@@ -1,0 +1,127 @@
+﻿@model Entertainment
+
+@{
+    var lstRegionName = ViewData["listRegionName"] as List<string>;
+}
+
+<div class="container">
+    <section class="form">
+        <h1>@ViewData["Title"]</h1>
+        
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Name" name="Name" id="name" required/>
+                    <label for="name" class="form__label">Name <span class="text-danger">*</span></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="Type" name="EntertainmentType" id="entertainmentType" required/>
+                    <label for="entertainmentType" class="form__label">Type <span class="text-danger">*</span></label>
+                </div>
+            </div>
+            <hr class="mt-5"/>
+            <h4 class="text-center">Address</h4>
+            <div class="select mt-4">
+                <select class="select-text" name="cityName" required>
+                    @foreach (var city in lstRegionName!) {
+                        <option value="@city">@city</option>
+                    }
+                </select>
+                <span class="select-highlight"></span>
+                <span class="select-bar"></span>
+                <label class="select-label">Please Select Region <span class="text-danger">*</span></label>
+            </div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="City" name="Address.City" id="city" required/>
+                    <label for="city" class="form__label">City <span class="text-danger">*</span></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="Street" name="Address.Street" id="street" required/>
+                    <label for="street" class="form__label">Street <span class="text-danger">*</span></label>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Built" onkeypress="return onlyNumberKey(event)" name="Address.Built" id="build" required/>
+                    <label for="build" class="form__label">Built <span class="text-danger">*</span></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="ZIP Code" name="Address.ZIPCode" id="ZIPCode"/>
+                    <label for="ZIPCode" class="form__label">ZIP Code</label>
+                </div>
+            </div>
+            <hr class="mt-5"/>
+            <h4 class="text-center">Contact</h4>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Instagram" name="Contact.Instagram" id="instagram"/>
+                    <label for="instagram" class="form__label">Instagram <i class="fa fa-instagram"></i></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="Facebook" name="Contact.Facebook" id="facebook"/>
+                    <label for="facebook" class="form__label">Facebook <i class="fa fa-facebook"></i></label>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="YouTube" name="Contact.YouTube" id="youTube"/>
+                    <label for="youTube" class="form__label">YouTube <i class="fa fa-youtube-play"></i></label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="WebSite" name="Contact.WebSite" id="webSite"/>
+                    <label for="webSite" class="form__label">WebSite <i class="fa fa-globe"></i></label>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="form__group field">
+                    <input class="form__field" placeholder="Phone 1" name="Contact.Phone1" id="phone1"/>
+                    <label for="phone1" class="form__label">Phone 1 </label>
+                </div>
+                <div class="form__group field ms-5">
+                    <input class="form__field" placeholder="Phone 2" name="Contact.Phone2" id="phone2"/>
+                    <label for="phone2" class="form__label">Phone 2 </label>
+                </div>
+            </div>
+            <hr class="mt-5"/>
+            <h4 class="text-center">Information</h4>
+            <div class="container-inf">
+                <ul class="ks-cboxtags d-flex flex-wrap justify-content-center align-items-center">
+                    <li>
+                        <input type="checkbox" id="checkbox1" name="About.FoodInRestaurant"><label for="checkbox1">Food in restaurant</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox2" name="About.FoodWithYou"><label for="checkbox2">Food with you</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox3" name="About.Delivery"><label for="checkbox3">Delivery</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox4" name="About.DrivingService"><label for="checkbox4">Driving service</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox5" name="About.ContactlessDelivery"><label for="checkbox5">Contactless delivery</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox6" name="About.SummerPlayground"><label for="checkbox6">Summer playground</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox7" name="About.Toilet"><label for="checkbox7">Toilet</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox8" name="About.FreeWiFi"><label for="checkbox8">Free Wi-Fi</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="checkbox9" name="About.ChildrenSuitable"><label for="checkbox9">Children suitable</label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Create" class="submit mt-2"/>
+            </div>
+        </div>
+    </section>
+</div>

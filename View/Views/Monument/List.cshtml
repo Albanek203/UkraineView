@@ -1,0 +1,20 @@
+﻿@model IReadOnlyCollection<Monument>
+
+@{
+    ViewData["Title"] = "Monuments";
+    Layout = "../../Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/table.css" asp-append-version="true"/>
+}
+
+<h5>
+    <span style="color:gray;">Admin/</span><span style="color: black;">Monuments</span>
+</h5>
+
+@await Html.PartialAsync("_listMonuments")
+
+@section Scripts{
+    <script src="~/js/table.js" asp-append-version="true"></script>
+}

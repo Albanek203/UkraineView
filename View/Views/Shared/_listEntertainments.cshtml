@@ -1,0 +1,85 @@
+﻿@model IReadOnlyCollection<Entertainment>
+
+@if (!Model.Equals(null)) {
+    <div class="card drop-shadow-gray-1 mt-4 mb-4 border-radius-1">
+        <div class="card-body entertainment-list-card">
+            <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group mt-3">
+                <input type="text" placeholder="Search by Name ..." class="form-control">
+            </div>
+
+            <div class="table-responsive mt-4">
+                <table class="table table-striped text-nowrap border">
+                    <thead>
+                    <tr>
+                        <th style="width: 35px;">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input checkAll">
+                            </div>
+                        </th>
+                        <th class="sorting">Name</th>
+                        <th class="sorting">Type</th>
+                        <th class="sorting">Rating</th>
+                        <th class="sorting">Region</th>
+                        <th class="sorting">City</th>
+                        <th class="sorting">Street</th>
+                        <th class="sorting">Active</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody class="entertainment-tbody">
+                    @{
+                        foreach (var entertainment in Model) {
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input">
+                                    </div>
+                                </td>
+                                <td>@entertainment.Name</td>
+                                <td>@entertainment.EntertainmentType</td>
+                                <td>@entertainment.Rating</td>
+                                <td>@entertainment.Address.Region</td>
+                                <td>@entertainment.Address.City</td>
+                                <td>@entertainment.Address.Street</td>
+                                <td class="d-flex align-items-center">
+                                    @if (@entertainment.IsChecked) { <span class="active">Active</span> }
+                                    else { <span class="not-active">Not active</span> }
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <span class="dots" data-bs-toggle="dropdown" aria-expanded="false"></span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-times mx-2 w-25"></i>Close</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-cogs mx-2 w-25"></i>Edit</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-redo-alt mx-2 w-25"></i>Refresh</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex mt-1 w-100 overflow-auto">
+                @if ((int)ViewData["ChunkCount"]! > 1) {
+                    <button class="nav-page-btn bg-emerald-dark" data-element="1">1</button>
+                    for (var i = 2; i <= (int)ViewData["ChunkCount"]!; i++) {
+                        <button class="nav-page-btn" data-element="@i">@i</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+else {
+    <hr class="mt-3"/>
+    <div class="title-text-table-center text-danger">Error<br/>You don't have entertainment</div>
+}

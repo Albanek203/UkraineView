@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.0.0" />
+    <PackageReference Include="Azure.Identity" Version="1.4.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
@@ -53,6 +56,60 @@
     <Content Update="wwwroot\Images\Icons\user-icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-5.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-6.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-7.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Categories\place-category-8.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Icons\sorting_desc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Icons\sorting_asc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Icons\sorting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\Icons\dots.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\all.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\animate.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\datepicker.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\fullcalendar.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\jquery.dataTables.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\main.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\normalize.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\select2.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\d\style.css" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Entertainment\AddEntertainment.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Entertainment\Entertainments.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Region\AddRegion.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Region\Regions.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\Monument\Monuments.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,83 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: linear-gradient(0.25turn, #242e4d, #897e79);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    color: whitesmoke;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: solid #00d6b7 2px;
+    width: 400px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: 100px;
+}
+
+.lf-label {
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f6f8;
+    cursor: pointer;
+}
+
+.lf-input {
+    flex: 1;
+    padding: 10px;
+    border: 0;
+    color: #8f8f8f;
+    font-size: 1rem;
+    outline: none;
+    width: 270px;
+    max-width: 270px;
+}
+
+.lf-submit {
+    padding: 1em;
+    width: 100%;
+    background-color: #00d6b7;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+    .lf-submit:hover {
+        transform: scale(.99);
+        opacity: .90;
+    }
+
+    .lf-submit:active {
+        background-color: #2ed2bc;
+    }
+
+.flex-row {
+    display: flex;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.errors-text {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+}
