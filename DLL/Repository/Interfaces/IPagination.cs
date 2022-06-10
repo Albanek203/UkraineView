@@ -2,5 +2,5 @@
 
 public interface IPagination<TData> where TData : class {
     Task<int> GetCountAsync();
-    Task<IReadOnlyCollection<TData>> GetPaginationAsync(int pageNumber, int pageSize);
+    Task<IReadOnlyCollection<TData>> GetPaginationAsync(int pageNumber = 1, int pageSize = 1);
 }
