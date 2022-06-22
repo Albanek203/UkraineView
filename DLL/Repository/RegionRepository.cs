@@ -4,7 +4,7 @@ public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
     public RegionRepository(UkraineContext context) : base(context) { }
 
     public override async Task<IReadOnlyCollection<Region>> GetAllAsync() =>
-        await this.Entities.Include(x => x.MapImage).Include(x => x.MapImage).Include(x => x.Images)
+        await this.Entities.Include(x => x.Images)
                   .Include(x => x.Entertainments).ThenInclude(x => x.WorkTime).Include(x => x.Entertainments)
                   .ThenInclude(x => x.Address).Include(x => x.Entertainments).ThenInclude(x => x.Reviews)
                   .ThenInclude(x => x.Images).Include(x => x.Entertainments).ThenInclude(x => x.Images)
@@ -16,7 +16,7 @@ public class RegionRepository : BaseRepository<Region>, IPagination<Region> {
 
     public override async Task<IReadOnlyCollection<Region>>
         FindByConditionAsync(Expression<Func<Region, bool>> predicate) =>
-        await this.Entities.Include(x => x.MapImage).Include(x => x.Entertainments).ThenInclude(x => x.WorkTime)
+        await this.Entities.Include(x => x.Entertainments).ThenInclude(x => x.WorkTime)
                   .Include(x => x.Entertainments).ThenInclude(x => x.Address).Include(x => x.Entertainments)
                   .ThenInclude(x => x.Reviews).ThenInclude(x => x.Images).Include(x => x.Entertainments)
                   .ThenInclude(x => x.Images).Include(x => x.Entertainments).ThenInclude(x => x.Contact)

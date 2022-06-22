@@ -3,12 +3,8 @@
 [Authorize(Roles = "Administrator")]
 public class RegionController : Controller, IJsonResponsePagination<Region> {
     private readonly RegionService _regionService;
-    private readonly ImageManager _imageManager;
 
-    public RegionController(ImageManager imageManager, RegionService regionService) {
-        _imageManager = imageManager;
-        _regionService = regionService;
-    }
+    public RegionController(RegionService regionService) { _regionService = regionService; }
 
     public IActionResult Create() => View();
 
@@ -22,8 +18,6 @@ public class RegionController : Controller, IJsonResponsePagination<Region> {
             ModelState.AddModelError(string.Empty, "Invalid value Identifier");
             return View();
         }
-        var lst = _imageManager.SaveImage(Request.Form.Files);
-        region.MapImage = new Image { Path = lst[0] };
         await _regionService.CreateAsync(region);
         return RedirectToAction(nameof(Create));
     }
@@ -34,7 +28,7 @@ public class RegionController : Controller, IJsonResponsePagination<Region> {
         if (!int.TryParse(pageNumber, out var pageNumberInt)) pageNumberInt = 1;
         return View(await GetByChunk(pageNumberInt, 10));
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> JsonResponse(string pageNumber) {
         int.TryParse(pageNumber, out var pageNumberInt);
