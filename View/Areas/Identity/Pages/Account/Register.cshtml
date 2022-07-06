@@ -5,7 +5,8 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/addition-form.css" asp-append-version="true"/>
 }
 
 <div class="container">
@@ -15,7 +16,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="flex-row">
                 <label class="lf-label" for="username">
-                    <img src="/Images/Icons/user-gray.png" class="icon" />
+                    <i class="fa fa-user" style="color: gray" aria-hidden="true"></i>
                 </label>
                 <input id="username" class="lf-input" placeholder="User name" type="text" asp-for="Input.UserName" autocomplete="nickname" aria-required="true">
             </div>
@@ -23,7 +24,7 @@
 
             <div class="flex-row">
                 <label class="lf-label" for="email">
-                    <img src="/Images/Icons/email-gray.png" class="icon" />
+                    <i class="fa fa-envelope" style="color: gray" aria-hidden="true"></i>
                 </label>
                 <input id="email" class="lf-input" placeholder="E-mail" type="email" asp-for="Input.Email" autocomplete="email" aria-required="true">
             </div>
@@ -31,7 +32,7 @@
 
             <div class="flex-row">
                 <label class="lf-label" for="password">
-                    <img src="/Images/Icons/lock-gray.png" class="icon" />
+                    <i class="fa fa-lock" style="color: gray" aria-hidden="true"></i>
                 </label>
                 <input id="password" class="lf-input" placeholder="Password" type="password" asp-for="Input.Password" autocomplete="new-password" aria-required="true">
             </div>
@@ -39,11 +40,21 @@
 
             <div class="flex-row">
                 <label class="lf-label" for="confirmPassword">
-                    <img src="/Images/Icons/lock-gray.png" class="icon" />
+                    <i class="fa fa-lock" style="color: gray" aria-hidden="true"></i>
                 </label>
                 <input id="confirmPassword" class="lf-input" placeholder="Confirm" type="password" asp-for="Input.ConfirmPassword" autocomplete="new-password" aria-required="true">
             </div>
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger errors-text"></span>
+            
+            <div class="flex-row">
+                <label class="lf-label" for="confirmPassword" style="width: 58px">
+                    <i class="fa fa-venus-mars" style="color: gray" aria-hidden="true"></i>
+                </label>
+                <select class="select-text" style="padding-left: 10px" id="gender" asp-for="Input.Gender" name="gender" autocomplete="gender" required>
+                    <option value="true">Male</option>
+                    <option value="false">Female</option>
+                </select>
+            </div>
 
             <input id="login-submit" class="lf-submit" type="submit" value="Register">
         </form>
@@ -52,5 +63,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }

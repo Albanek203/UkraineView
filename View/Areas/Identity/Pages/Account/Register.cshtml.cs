@@ -97,6 +97,10 @@ namespace View.Areas.Identity.Pages.Account {
             [StringLength(16, ErrorMessage = "The length of the user name should be from 4 to 16", MinimumLength = 4)]
             [Display(Name = "User name")]
             public string UserName { get; set; }
+            
+            [Required]
+            [Display(Name = "Gender")]
+            public bool Gender { get; set; }
         }
 
 
@@ -105,13 +109,14 @@ namespace View.Areas.Identity.Pages.Account {
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null) {
+        public async Task<IActionResult> OnPostAsync(bool gender,string returnUrl = null) {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid) {
                 var user = CreateUser();
 
                 user.NickName = Input.UserName;
+                user.isMale = gender;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -119,7 +124,7 @@ namespace View.Areas.Identity.Pages.Account {
                 if (result.Succeeded) {
                     _logger.LogInformation("User created a new account with password.");
                     var userId = await _userManager.GetUserIdAsync(user);
-                    //await SetRole(userId, "Administrator");
+                    await SetRole(userId, "Administrator");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
